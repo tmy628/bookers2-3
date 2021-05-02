@@ -20,12 +20,13 @@
       <thead>
       </thead>
       <tr>
-        <td><%= link_to attachment_image_tag(@user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg"),user_path(@user.id) %><br>
+        <td>
+          <%= link_to attachment_image_tag(@user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg"),user_path(@user.id) %><br>
         <%= link_to @user.name, user_path(@user.id) %></td>
 
         <td><%= link_to @book.title, book_path(@book.id) %></td>
         <td><%= @book.body %></td>
-
+        <td><%=  render 'favorite', book: @book %></td>
         <!-- 編集ボタンと削除ボタンをつける-->
         <% if @user.id == current_user.id %>
           <td><%= link_to "Edit", edit_book_path(@book.id), class: "btn btn-sm btn-success" %></td>
