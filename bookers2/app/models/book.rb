@@ -1,13 +1,20 @@
 class Book < ApplicationRecord
 
    belongs_to :user
-   # belongs_toは、bookモデルからuser_idに関連付けられていて、Userモデルを参照することができる
-   # bookモデルに関連付けられるのは、1つのUserモデルのみ → 単数形の「user」になっている
+
+   has_many :favorites, dependent: :destroy
+   # Bookモデルに関連付けを追加する
+
+
+   def favorited_by?(user)
+     favorites.where(user_id: user.id).exists?
+   end
+   # favorited_by?メソッドを作成
+   # このメソッドで、引数で渡されたユーザidがFavoritesテーブル内に存在（exists?）するかどうかを調べる
+   # 存在していればtrue、存在していなければfalseを返すようにしている
 
    validates :title,
      presence: true
    validates :body,
      presence: true, length: { maximum: 200 }
-     # 文字数の制限を設ける→length 長さの下限を200文字に設定→minimum
-     # presence: trueは、空欄でないことを確認している
 end
