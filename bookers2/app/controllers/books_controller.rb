@@ -38,11 +38,12 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
-    @books = Book.all
-
-    @user = @book.user
-    # 本の投稿者が誰なのか
     @booknew = Book.new
+    @books = Book.all
+    @user = @book.user
+
+    @book_comment = BookComment.new
+
   end
 
   def edit
